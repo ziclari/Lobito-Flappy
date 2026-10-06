@@ -1,0 +1,585 @@
+{
+  "pbtResults": {
+    "3.2 Write property test for gravity accumulation and position integration": {
+      "status": "passed",
+      "lastRunTimestamp": 1791237281233
+    },
+    "4.2 Write property test for tower spawning interval and gap bounds": {
+      "status": "passed",
+      "lastRunTimestamp": 1791237359210
+    },
+    "3.5 Write property test for jump sprite duration": {
+      "status": "passed",
+      "lastRunTimestamp": 1791237878557
+    },
+    "6.2 Write property test for collision → GAME_OVER transition": {
+      "status": "passed",
+      "lastRunTimestamp": 1791238006057
+    },
+    "6.4 Write property test for idempotent scoring": {
+      "status": "passed",
+      "lastRunTimestamp": 1791238395212
+    },
+    "9.3 Write property test for READY state immutability": {
+      "status": "passed",
+      "lastRunTimestamp": 1791238469297
+    }
+  },
+  "executionHistory": {
+    "1.1 Create `index.html` with a `<canvas id=\"gameCanvas\">` element, link `style.css` in `<head>`, and add `<script src=\"game.js\">` at the bottom of `<body>`": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236677773
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236683744
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236704863
+      }
+    ],
+    "1.2 Create `style.css` to center the canvas in the viewport with a neutral background and no page margins or scrollbars": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236677862
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236685814
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236707057
+      }
+    ],
+    "2.1 Grab the canvas and 2D context; define all top-level constants (`CANVAS_WIDTH`, `CANVAS_HEIGHT`, `GRAVITY`, `IMPULSE`, `JUMP_DURATION`, `TOWER_WIDTH`, `TOWER_SPEED`, `GAP_HEIGHT`, `SPAWN_INTERVAL`, `GAP_MIN`, `GAP_MAX`)": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236677923
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236711675
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236742142
+      }
+    ],
+    "2.2 Pre-load all four wolf sprites into `Image` objects (`sprites.fly`, `sprites.jump`, `sprites.hit`, `sprites.dead`) pointing to `assets/wolf/*.png`": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236677947
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236713951
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236757044
+      }
+    ],
+    "3.1 Define the `wolf` object (`x`, `y`, `vy`, `width`, `height`, `jumpTimer`) and the `wolfHit` flag; implement `applyGravity()` that adds `GRAVITY` to `wolf.vy` and integrates `wolf.y += wolf.vy`, clamping `wolf.y` to `[0, CANVAS_HEIGHT - wolf.height]`": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236677968
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236764913
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236796035
+      }
+    ],
+    "3.3 Implement `flap()` that sets `wolf.vy = IMPULSE` and `wolf.jumpTimer = JUMP_DURATION`, and decrements `wolf.jumpTimer` in the per-frame update": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236677995
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236831913
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236848854
+      }
+    ],
+    "3.4 Implement `getCurrentSprite()` returning the correct image based on `gameState`, `wolfHit`, and `wolf.jumpTimer` (dead → hit → jump → fly precedence)": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678024
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237382037
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237505632
+      }
+    ],
+    "4.1 Define the `towers` array; implement `spawnTower()` that pushes a new tower object with `x = CANVAS_WIDTH`, a random `gapY` in `[GAP_MIN, GAP_MAX]`, and `scored = false`; call it via a `spawnTimer` that triggers every `SPAWN_INTERVAL` frames": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678049
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236767249
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236818396
+      }
+    ],
+    "4.3 Implement per-frame tower movement (`tower.x -= TOWER_SPEED`) and removal of towers whose right edge has moved past x = 0": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678076
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236834125
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236869193
+      }
+    ],
+    "5. Checkpoint — wire physics and towers into the game loop": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678098
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238817783
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238860812
+      }
+    ],
+    "6.1 Implement `rectsOverlap(a, b)` AABB helper and `checkCollisions()` that tests the wolf rectangle against each tower's top and bottom rectangles; set `wolfHit = true` and transition to `GAME_OVER` on any hit; also check ground collision (`wolf.y + wolf.height >= CANVAS_HEIGHT`)": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678123
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237520090
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237890279
+      }
+    ],
+    "6.3 Implement scoring inside the per-frame update: for each tower where `!tower.scored && wolf.x > tower.x + TOWER_WIDTH`, increment `score` and set `tower.scored = true`": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678145
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237919746
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238027658
+      }
+    ],
+    "7.1 Implement `drawBackground()` filling the canvas with sky-blue (`#87CEEB`)": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678167
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237522497
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237908577
+      }
+    ],
+    "7.2 Implement `drawTowers()` rendering each tower pair as two pink (`#FF69B4`) filled rectangles (top: y=0 to gapY; bottom: gapY+GAP_HEIGHT to CANVAS_HEIGHT)": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678204
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237523322
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237911395
+      }
+    ],
+    "7.3 Implement `drawWolf()` using `ctx.drawImage(getCurrentSprite(), wolf.x, wolf.y, wolf.width, wolf.height)`": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678238
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237523803
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237913864
+      }
+    ],
+    "7.4 Implement `drawScore()` rendering the current score as white text with a dark stroke at top-center of the canvas, visible only during PLAYING state": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678258
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237922481
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238030462
+      }
+    ],
+    "8.1 Implement `drawReady()` rendering a centered prompt (\"Press Space or click to begin\") and the wolf at its starting position; no towers or physics active": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678283
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237923074
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238033340
+      }
+    ],
+    "8.2 Implement `drawGameOver()` rendering a semi-transparent dark overlay panel with \"GAME OVER\", \"Score: N\", and \"Press Space or click to restart\"": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678308
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237923570
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238036033
+      }
+    ],
+    "9.1 Implement `handleInput()` that routes Space/click to `startGame()`, `flap()`, or `resetGame()` depending on `gameState`; wire `keydown` and `canvas click` listeners": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678333
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238043848
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238409015
+      }
+    ],
+    "9.2 Implement `resetGame()` that zeroes wolf position and velocity, clears `towers`, resets `score`, `spawnTimer`, and `wolfHit`, then sets `gameState = 'READY'`": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678357
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238044430
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238411590
+      }
+    ],
+    "10.1 Implement `update()` branching on `gameState`: PLAYING runs gravity, jump timer, tower spawn/move, collision, and scoring; READY and GAME_OVER do nothing": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678383
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238417795
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238484157
+      }
+    ],
+    "10.2 Implement `draw()` branching on `gameState`: calls background + towers + wolf + score for PLAYING, `drawReady()` for READY, background + towers + wolf + `drawGameOver()` for GAME_OVER": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678408
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238418405
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238487105
+      }
+    ],
+    "10.3 Start the `requestAnimationFrame` loop by calling `gameLoop()` once after all setup is complete": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678430
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238490199
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238812490
+      }
+    ],
+    "11. Final checkpoint — full integration": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236678456
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238863654
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238910340
+      }
+    ],
+    "1. Set up the HTML shell and CSS layout": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236707090
+      }
+    ],
+    "2. Bootstrap `game.js`: canvas context, constants, and sprite loading": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236757103
+      }
+    ],
+    "4. Implement tower spawning, movement, and removal": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791236869248
+      }
+    ],
+    "3.2 Write property test for gravity accumulation and position integration": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237193666
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237294388
+      }
+    ],
+    "4.2 Write property test for tower spawning interval and gap bounds": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237303141
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237374148
+      }
+    ],
+    "4.4 Write property test for tower constant-speed movement and off-screen removal": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237379056
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237508085
+      }
+    ],
+    "3. Implement wolf object, physics, and sprite selection": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237505678
+      }
+    ],
+    "3.5 Write property test for jump sprite duration": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237516815
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237888953
+      }
+    ],
+    "6.2 Write property test for collision → GAME_OVER transition": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791237926758
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238024848
+      }
+    ],
+    "6. Implement collision detection and scoring": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238027694
+      }
+    ],
+    "7. Implement rendering: background, towers, wolf, HUD": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238030494
+      }
+    ],
+    "8. Implement state-specific UI overlays": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238036101
+      }
+    ],
+    "6.4 Write property test for idempotent scoring": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238043182
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238406095
+      }
+    ],
+    "9. Implement state machine, input handling, and reset": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238411647
+      }
+    ],
+    "9.3 Write property test for READY state immutability": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238417227
+      },
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238481061
+      }
+    ],
+    "10. Wire `update()`, `draw()`, and `requestAnimationFrame` loop": [
+      {
+        "executionId": "cc548b11-2d14-4496-a3e1-087e8194b101",
+        "chatSessionId": "sess_76ee5026-2755-4e83-b492-6db7e325da75",
+        "timestamp": 1791238812550
+      }
+    ]
+  }
+}
